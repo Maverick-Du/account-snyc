@@ -1,0 +1,13 @@
+{
+  "configuration": {
+    "applys": {
+      "com.kingsoft.wpsyun": {
+        "modules": ["Admin"]
+      }
+    },
+    "type": "web",
+    "filters": [],
+    "modules": ["Admin"],
+    "entrys": []
+  }
+}

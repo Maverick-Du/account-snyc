@@ -1,0 +1,12 @@
+FROM swr.cn-north-1.myhuaweicloud.com/cams-pub/cams-node-runner:ubuntu-22.04-amd64-20240920 AS builder
+ADD . /opt/app
+WORKDIR /opt/app
+RUN set -e && npm config set registry https://registry.npmmirror.com && \
+    yarn && npx tsc && rm -rf ./src ./.npmrc
+
+FROM swr.cn-north-1.myhuaweicloud.com/cams-pub/cams-node-runner:ubuntu-22.04-arm64-20240920 AS runner
+WORKDIR /opt/app-serve
+COPY --from=builder /opt/app ./
+EXPOSE 8000
+
+ENTRYPOINT ["/opt/app-serve/start_arm.sh"]

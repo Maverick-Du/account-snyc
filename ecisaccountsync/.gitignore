@@ -1,0 +1,12 @@
+node_modules/
+output/
+dist
+build/
+.env
+.cgc
+!.env.example.json
+../.idea/
+.idea/sonarlint/
+.idea/
+package-lock.json
+.idea/inspectionProfiles/

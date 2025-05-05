@@ -1,0 +1,8 @@
+# yaml格式,支持注释
+# env配置文件用于固化配置项，设置默认配置
+# env配置文件禁止添加敏感数据,如秘钥、身份信息等
+env:
+  # db: "test"
+  HTTP_KPORT: "8000"
+  TZ: "Asia/Shanghai"
+  salt:

@@ -1,0 +1,20 @@
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `dept_add_error` int(11) DEFAULT 0 COMMENT 'dept_add_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `dept_update_ignore` int(11) DEFAULT 0 COMMENT 'dept_update_ignore';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `dept_update_error` int(11) DEFAULT 0 COMMENT 'dept_update_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `dept_delete_error` int(11) DEFAULT 0 COMMENT 'dept_delete_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `dept_move_error` int(11) DEFAULT 0 COMMENT 'dept_move_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_delete_error` int(11) DEFAULT 0 COMMENT 'user_delete_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_update_error` int(11) DEFAULT 0 COMMENT 'user_update_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_add_error` int(11) DEFAULT 0 COMMENT 'user_add_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_leader_update` int(11) DEFAULT 0 COMMENT 'user_leader_update';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_leader_update_error` int(11) DEFAULT 0 COMMENT 'user_leader_update_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_enable` int(11) DEFAULT 0 COMMENT 'user_enable';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_enable_error` int(11) DEFAULT 0 COMMENT 'user_enable_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_disable` int(11) DEFAULT 0 COMMENT 'user_disable';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_disable_error` int(11) DEFAULT 0 COMMENT 'user_disable_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `dept_user_add_error` int(11) DEFAULT 0 COMMENT 'dept_user_add_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `dept_user_delete_error` int(11) DEFAULT 0 COMMENT 'dept_user_delete_error';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_update_ignore` int(11) DEFAULT 0 COMMENT 'user_update_ignore';
+ALTER TABLE `tb_full_sync_task_statistics` ADD COLUMN `user_dept_update_error` int(11) DEFAULT 0 COMMENT 'user_dept_update_error';
+
+ALTER TABLE `tb_full_sync_dept_record` ADD COLUMN `wps_did` varchar(255) DEFAULT NULL COMMENT '云文档deptId';

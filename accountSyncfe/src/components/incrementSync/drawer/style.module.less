@@ -1,0 +1,28 @@
+.sync-increased-drawer {
+  :global(.ant-drawer-header-title) {
+    flex-direction: row-reverse;
+  }
+  .detail-title {
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 3px 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -15px;
+      bottom: 0;
+      border-left: 4px solid #1677FF;
+    }
+  }
+  .detail-item {
+    padding: 8px 0;
+    display: flex;
+    .label {
+      width: 100px;
+      text-align: right;
+    }
+  }
+}

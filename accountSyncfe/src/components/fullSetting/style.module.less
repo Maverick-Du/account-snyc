@@ -1,0 +1,119 @@
+.container {
+  margin: 20px 0 0 30px;
+  .setting-item {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    .title {
+      display: inline-block;
+      margin-left: 20px;
+      .tip-icon {
+        margin: -2px 0 0 2px;
+      }
+    }
+    :global(.ant-form-item) {
+      margin: 0 0 0 20px;
+    }
+  }
+  .setting-tip-border {
+    margin-top: 20px;
+    padding: 0 0 10px 20px;
+    color: #767676;
+    font-size: 12px;
+    border-bottom: 1px solid #dcdfe6;
+  }
+  .setting-tip {
+    margin-top: 20px;
+    // padding: 0 0 30px 20px;
+    color: #767676;
+    font-size: 12px;
+  }
+  .setting-title {
+    font-size: 14px;
+  }
+  .setting-rollback-table {
+    // padding: 0 25px;
+    padding-top: 10px;
+    font-size: 14px;
+    height: 645px;
+    :global(.ant-table-thead .ant-table-cell) {
+      font-weight: 600;
+    }
+
+    :global(.ant-table-wrapper) {
+      height: 100%;
+
+      :global(.ant-spin-nested-loading) {
+        height: 100%;
+      }
+
+      :global(.ant-spin-container) {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        > :global(.ant-table) {
+          flex: 1;
+
+          > :global(.ant-table-container) {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            > :global(.ant-table-body) {
+              flex: 1;
+            }
+          }
+        }
+
+        > :global(.ant-pagination) {
+          margin-bottom: 0;
+          padding-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  .range-item {
+    margin: 10px 30px 0 0;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 12px 6px 12px 12px;
+    .range-info {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.25);
+      .range-id {
+        color: #767676;
+      }
+      .range-refresh {
+        margin-left: 10px;
+        color: #0256ff;
+        cursor: pointer;
+      }
+    }
+    .range-tree {
+      height: 310px;
+      overflow-y: scroll;
+    }
+    .range-spin {
+      height: 310px;
+      align-items: center;
+      justify-content: center;
+      color: #9e9e9e;
+      display: flex;
+      :global(.ant-spin) {
+        color: #9e9e9e;
+      }
+    }
+    .del-list {
+      height: 160px;
+      overflow-y: scroll;
+      .del-item {
+        margin-left: 30px;
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+    }
+  }
+}

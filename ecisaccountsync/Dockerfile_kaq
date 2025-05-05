@@ -1,0 +1,21 @@
+FROM hub-mirror.wps.cn/security-public/shaobing-analyzer:javascript-node16-f039f94d1240c9c9811e9f2bbed1800a2529e720
+
+ARG CI_JOB_NAME
+ARG CI_BUILD_ID
+ARG CI_PROJECT_NAME
+ARG KAQ_ACCESS_KEY
+ARG KAQ_SECRET_KEY
+ARG CI_CRED_KSO_CAMS_BOT
+
+ENV CI_JOB_NAME=${CI_JOB_NAME}
+ENV CI_BUILD_ID=${CI_BUILD_ID}
+ENV CI_PROJECT_NAME=${CI_PROJECT_NAME}
+ENV KAQ_ACCESS_KEY=${KAQ_ACCESS_KEY}
+ENV KAQ_SECRET_KEY=${KAQ_SECRET_KEY}
+ENV CI_CRED_KSO_CAMS_BOT=${CI_CRED_KSO_CAMS_BOT}
+
+ADD . /workspace
+WORKDIR /workspace/ecisaccountsync
+RUN set -e && npm config set registry https://registry.npmmirror.com & \
+    npm i & \
+    shaobing-analyzer -debug

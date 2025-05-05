@@ -1,0 +1,6 @@
+{
+  "buildmode": "resource-basic",
+  "organization": "single",
+  "source": "file://pack",
+  "type": "resource"
+}

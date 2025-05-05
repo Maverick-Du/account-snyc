@@ -1,0 +1,117 @@
+/* eslint-disable camelcase */
+import {IDatabase, Table } from "../../../sdk/cognac/orm"
+import {FullSyncUpdateType, RecordStatus, StatisticAnalyseOperateType} from '../types'
+
+export interface FullSyncDeptRecord {
+  id: number,
+  task_id: string,
+  company_id: string,
+  name: string,
+  platform_id: string,
+  did: string,
+  wps_did: string,
+  wps_pid: string,
+  abs_path: string,
+  update_type: FullSyncUpdateType,
+  status: RecordStatus,
+  msg?: string
+  err_type?: string
+  ctime?: Date
+  mtime?: Date
+}
+
+export class FullSyncDeptRecordTable extends Table<FullSyncDeptRecord> {
+  constructor(db: IDatabase) {
+    super(db, 'tb_full_sync_dept_record')
+  }
+
+  async addRecord(ovs: Partial<FullSyncDeptRecord>): Promise<number> {
+    return this.add(ovs).query()
+  }
+
+  async addRecords(ovs: Partial<FullSyncDeptRecord>[]) {
+    return this.db.insert('insert into tb_full_sync_dept_record (task_id, company_id, `name`, platform_id, did, wps_did, wps_pid, abs_path, update_type, `status`, msg) values ?', [ovs.map(o => [o.task_id, o.company_id, o.name, o.platform_id, o.did, o.wps_did, o.wps_pid, o.abs_path, o.update_type, o.status, o.msg])])
+  }
+
+  async countData() {
+    return this.db.select('select count(1) as total from tb_full_sync_dept_record', [])
+  }
+
+  async deleteByTaskId(taskId: string): Promise<void> {
+    await this.remove('task_id =?', taskId).query()
+  }
+
+  async queryRecordsByStatus(companyId: string, taskId: string, status: RecordStatus[]) {
+    const statusString = status.join(',')
+    return this.select('*').where('task_id = ? and company_id = ? and status in (' + statusString + ')', taskId, companyId).query()
+  }
+
+  async queryRecordsByStatusAndType(taskId: string, status: RecordStatus, updateType: FullSyncUpdateType) {
+    return this.select('*').where('task_id = ? and status = ? and update_type =?', taskId, status, updateType).query()
+  }
+
+  async queryRecordList(taskId: string, offset:number, limit: number, status: RecordStatus, updateType?: FullSyncUpdateType, errType?: string, content?: string) {
+    let whereClauses: string[] = []
+    whereClauses.push('task_id = ? and status = ?')
+    if (!!updateType) {
+      whereClauses.push('update_type = ?')
+    }
+
+    if (!!errType) {
+      whereClauses.push('err_type = ?')
+    }
+
+    if (!!content) {
+      whereClauses.push(`name like ?`)
+      content = `${content}%`
+    }
+
+    const wheres = whereClauses.join(' and ')
+    const params = [
+      taskId,
+      status,
+      ...(updateType ? [updateType] : []),
+      ...(errType ? [errType] : []),
+      ...(content ? [content] : [])
+    ]
+    return this.select('task_id,company_id,name,did,wps_pid,abs_path,update_type,msg,platform_id,err_type').where(wheres, ...params).orderBy('id asc').limit(limit, limit * offset).query()
+  }
+
+  async queryRecordListCount(taskId: string, status: RecordStatus, updateType?: FullSyncUpdateType, errType?: string, content?: string) {
+    let whereClauses: string[] = []
+    whereClauses.push('task_id = ? and status = ?')
+    if (!!updateType) {
+      whereClauses.push('update_type = ?')
+    }
+
+    if (!!errType) {
+      whereClauses.push('err_type = ?')
+    }
+
+    if (!!content) {
+      whereClauses.push(`name like ?`)
+      content = `${content}%`
+    }
+
+    const wheres = whereClauses.join(' and ')
+    const params = [
+      taskId,
+      status,
+      ...(updateType ? [updateType] : []),
+      ...(errType ? [errType] : []),
+      ...(content ? [content] : [])
+    ]
+    let countList: any[] = await this.select('count(1) as total').where(wheres, ...params).query()
+    return countList[0].total as number
+  }
+
+  async getAnalyseRecordsByStatusAndType(taskId: string, status: RecordStatus, updateType: FullSyncUpdateType) {
+    return this.select('platform_id,did').where('task_id = ? and status = ? and update_type =?', taskId, status, updateType).query()
+  }
+
+  async queryAnalyseRecordErrCount(taskId: string, updateType: StatisticAnalyseOperateType, errType: string) {
+    let countList: any[] = await this.select('count(1) as total').where('task_id = ? and status = ? and update_type =? and err_type = ?', taskId, RecordStatus.FAIL, updateType, errType).query()
+    return countList[0].total as number
+  }
+
+}

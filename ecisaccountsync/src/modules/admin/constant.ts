@@ -1,0 +1,1 @@
+export const SYNC_JOB_SETTING_DEFAULT_RATE = 10
